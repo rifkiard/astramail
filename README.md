@@ -5,7 +5,7 @@ Custom Laravel mail transport for the Astra World internal mail service.
 ## Requirements
 
 - PHP 8.1+
-- Laravel 10 or 11
+- Laravel 10, 11, or 12
 
 ## Installation
 
