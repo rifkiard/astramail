@@ -2,7 +2,6 @@
 
 namespace Rifkiard\AstraMail;
 
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
 
 class AstraMailServiceProvider extends ServiceProvider
@@ -25,9 +24,12 @@ class AstraMailServiceProvider extends ServiceProvider
             ], 'astramail-config');
         }
 
-        // Register the custom transport driver with Laravel's Mail manager.
-        Mail::extend('astramail', function (array $config = []) {
-            return new AstraMailTransport();
+        // Use callAfterResolving so the transport is registered regardless of
+        // whether MailManager was already resolved before boot() ran (Laravel 12).
+        $this->callAfterResolving('mail.manager', function ($manager) {
+            $manager->extend('astramail', function (array $config = []) {
+                return new AstraMailTransport();
+            });
         });
     }
 }
