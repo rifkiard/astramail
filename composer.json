@@ -24,13 +24,13 @@
     },
     "autoload": {
         "psr-4": {
-            "AstraWorld\\AstraMail\\": "src/"
+            "Rifkiard\\AstraMail\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "AstraWorld\\AstraMail\\AstraMailServiceProvider"
+                "Rifkiard\\AstraMail\\AstraMailServiceProvider"
             ]
         }
     },

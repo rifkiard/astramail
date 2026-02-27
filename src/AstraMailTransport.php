@@ -1,6 +1,6 @@
 <?php
 
-namespace AstraWorld\AstraMail;
+namespace Rifkiard\AstraMail;
 
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Mailer\SentMessage;
@@ -22,18 +22,18 @@ class AstraMailTransport extends AbstractTransport
         $verifyTls  = config('astramail.verify_tls', false);
 
         $data = [
-            'from'    => collect($email->getFrom())->map(fn ($a) => $a->getAddress())->join(';'),
-            'to'      => collect($email->getTo())->map(fn ($a) => $a->getAddress())->join(';'),
+            'from'    => collect($email->getFrom())->map(fn($a) => $a->getAddress())->join(';'),
+            'to'      => collect($email->getTo())->map(fn($a) => $a->getAddress())->join(';'),
             'subject' => $email->getSubject(),
             'content' => $email->getHtmlBody() ?? $email->getTextBody(),
         ];
 
         if (count($email->getCc())) {
-            $data['cc'] = collect($email->getCc())->map(fn ($a) => $a->getAddress())->join(';');
+            $data['cc'] = collect($email->getCc())->map(fn($a) => $a->getAddress())->join(';');
         }
 
         if (count($email->getBcc())) {
-            $data['bcc'] = collect($email->getBcc())->map(fn ($a) => $a->getAddress())->join(';');
+            $data['bcc'] = collect($email->getBcc())->map(fn($a) => $a->getAddress())->join(';');
         }
 
         $request = Http::withOptions(['verify' => $verifyTls])
@@ -54,14 +54,6 @@ class AstraMailTransport extends AbstractTransport
         $response = $hasAttachments
             ? $request->post("{$baseUrl}/send_email", $data)
             : $request->asForm()->post("{$baseUrl}/send_email", $data);
-
-        // Log result for observability.
-        logger()->info('AstraMailTransport', [
-            'status'   => $response->status(),
-            'response' => $response->json(),
-            'to'       => $data['to'],
-            'subject'  => $data['subject'],
-        ]);
 
         // Surface HTTP errors as exceptions so Laravel mail knows the send failed.
         if ($response->failed()) {

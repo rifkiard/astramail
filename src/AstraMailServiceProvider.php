@@ -1,6 +1,6 @@
 <?php
 
-namespace AstraWorld\AstraMail;
+namespace Rifkiard\AstraMail;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
