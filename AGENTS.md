@@ -15,6 +15,7 @@ rifkiard/
 └── astramail/           ← package root
     ├── composer.json
     ├── README.md
+    ├── .gitignore
     ├── config/
     │   └── astramail.php
     └── src/
@@ -45,19 +46,19 @@ File: `astramail/composer.json`
   ],
   "require": {
     "php": "^8.1",
-    "illuminate/support": "^10.0 || ^11.0",
-    "illuminate/http": "^10.0 || ^11.0",
+    "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+    "illuminate/http": "^10.0 || ^11.0 || ^12.0",
     "symfony/mailer": "^6.2 || ^7.0",
     "symfony/mime": "^6.2 || ^7.0"
   },
   "autoload": {
     "psr-4": {
-      "AstraWorld\\AstraMail\\": "src/"
+      "Rifkiard\\AstraMail\\": "src/"
     }
   },
   "extra": {
     "laravel": {
-      "providers": ["AstraWorld\\AstraMail\\AstraMailServiceProvider"]
+      "providers": ["Rifkiard\\AstraMail\\AstraMailServiceProvider"]
     }
   },
   "minimum-stability": "stable",
@@ -68,7 +69,7 @@ File: `astramail/composer.json`
 **Key points:**
 
 - `extra.laravel.providers` enables Laravel package auto-discovery — no manual registration needed in consumer apps.
-- Supports Laravel 10 and 11.
+- Supports Laravel 10, 11, and 12.
 
 ---
 
@@ -119,7 +120,7 @@ File: `astramail/src/AstraMailTransport.php`
 ```php
 <?php
 
-namespace AstraWorld\AstraMail;
+namespace Rifkiard\AstraMail;
 
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Mailer\SentMessage;
@@ -214,7 +215,7 @@ File: `astramail/src/AstraMailServiceProvider.php`
 ```php
 <?php
 
-namespace AstraWorld\AstraMail;
+namespace Rifkiard\AstraMail;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
@@ -261,7 +262,7 @@ Custom Laravel mail transport for the Astra World internal mail service.
 ## Requirements
 
 - PHP 8.1+
-- Laravel 10 or 11
+- Laravel 10, 11, or 12
 
 ## Installation
 
@@ -320,9 +321,18 @@ git init
 git add .
 git commit -m "feat: initial AstraMail Laravel package"
 git tag v1.0.0
-git remote add origin git@github.com:rifkiard/astramail.git
+git remote add origin https://github.com/rifkiard/astramail.git
 git push -u origin main --tags
 ```
+
+### Release History
+
+| Tag | Commit | Description |
+|---|---|---|
+| `v1.0.0` | `2748a28` | feat: initial AstraMail Laravel package |
+| `v1.0.1` | `125dd2e` | chore: add .gitignore |
+| `v1.0.2` | `556592d` | feat: add Laravel 12 support (`^12.0` on illuminate/*) |
+| `v1.0.3` | `3d43c74` | refactor: rename namespace `AstraWorld` → `Rifkiard` |
 
 ---
 
@@ -336,7 +346,7 @@ In the consumer project's `composer.json`, add a VCS repository entry:
 "repositories": [
     {
         "type": "vcs",
-        "url": "git@github.com:rifkiard/astramail.git"
+        "url": "https://github.com/rifkiard/astramail.git"
     }
 ],
 ```
@@ -381,4 +391,4 @@ Set up a [Satis](https://github.com/composer/satis) server or use [Private Packa
 | Queue-aware send   | Hook into `ShouldQueue` jobs seamlessly                          |
 | Test fake          | Provide `AstraMailFake` similar to `Mail::fake()` for unit tests |
 | Multiple endpoints | Support environment-scoped URLs (prod vs staging)                |
-| Laravel 12 support | Bump `illuminate/*` constraints when released                    |
+| Laravel 12 support | ~~Bump `illuminate/*` constraints when released~~ **Done in v1.0.2** |
