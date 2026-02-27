@@ -327,12 +327,12 @@ git push -u origin main --tags
 
 ### Release History
 
-| Tag | Commit | Description |
-|---|---|---|
-| `v1.0.0` | `2748a28` | feat: initial AstraMail Laravel package |
-| `v1.0.1` | `125dd2e` | chore: add .gitignore |
-| `v1.0.2` | `556592d` | feat: add Laravel 12 support (`^12.0` on illuminate/*) |
-| `v1.0.3` | `3d43c74` | refactor: rename namespace `AstraWorld` → `Rifkiard` |
+| Tag      | Commit    | Description                                             |
+| -------- | --------- | ------------------------------------------------------- |
+| `v1.0.0` | `2748a28` | feat: initial AstraMail Laravel package                 |
+| `v1.0.1` | `125dd2e` | chore: add .gitignore                                   |
+| `v1.0.2` | `556592d` | feat: add Laravel 12 support (`^12.0` on illuminate/\*) |
+| `v1.0.3` | `3d43c74` | refactor: rename namespace `AstraWorld` → `Rifkiard`    |
 
 ---
 
@@ -385,10 +385,10 @@ Set up a [Satis](https://github.com/composer/satis) server or use [Private Packa
 
 ## 10. Future Improvements (Backlog)
 
-| Idea               | Notes                                                            |
-| ------------------ | ---------------------------------------------------------------- |
-| Retry logic        | Add configurable retry count/backoff on HTTP failure             |
-| Queue-aware send   | Hook into `ShouldQueue` jobs seamlessly                          |
-| Test fake          | Provide `AstraMailFake` similar to `Mail::fake()` for unit tests |
-| Multiple endpoints | Support environment-scoped URLs (prod vs staging)                |
+| Idea               | Notes                                                                |
+| ------------------ | -------------------------------------------------------------------- |
+| Retry logic        | Add configurable retry count/backoff on HTTP failure                 |
+| Queue-aware send   | Hook into `ShouldQueue` jobs seamlessly                              |
+| Test fake          | Provide `AstraMailFake` similar to `Mail::fake()` for unit tests     |
+| Multiple endpoints | Support environment-scoped URLs (prod vs staging)                    |
 | Laravel 12 support | ~~Bump `illuminate/*` constraints when released~~ **Done in v1.0.2** |
